@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="../js/move.js"></script>
+<script>
+window.onload=function(){
+	var oUl=document.getElementById('rotatePic');
+	var aLi=oUl.children;
+	var aImg=oUl.getElementsByTagName('img');
+	var aA=oUl.getElementsByTagName('a');
+	
+	aA[0].onclick=function(){
+		toRight();
+		return false;
+	};
+	aA[2].onclick=function(){
+		toLeft();
+		return false;
+	};
+	
+	//存信息
+	var aPos=[];
+	for(var i=0; i<aLi.length; i++){
+		aPos[i]={
+			left:aLi[i].offsetLeft,
+			top:aLi[i].offsetTop,
+			width:aImg[i].offsetWidth,
+			height:aImg[i].offsetHeight,
+			imgT:aImg[i].offsetTop,
+			opacity:parseFloat(getStyle(aImg[i],'opacity')),
+			fnClick:aA[i].onclick,
+			zIndex:aLi[i].style.zIndex
+		};
+	}
+	
+	function tab(){
+		for(var i=0; i<aLi.length; i++){
+			move(aLi[i],{left:aPos[i].left, top:aPos[i].top});
+			move(aImg[i],{width:aPos[i].width, height:aPos[i].height,top:aPos[i].imgT, opacity:aPos[i].opacity});
+			aA[i].onclick=aPos[i].fnClick;
+			aLi[i].style.zIndex=aPos[i].zIndex;
+		}	
+	}
+	
+	function toRight(){
+		aPos.push(aPos.shift());
+		
+		tab();
+	}
+	function toLeft(){
+		aPos.unshift(aPos.pop());
+		
+		tab();
+	}
+};
+</script>
+</head>
+
+<body>
+<ul id="rotatePic">
+	<li class="pic1" style="z-index:3;">
+		<a href="http://baidu.com/"><img src="images/pic1.gif" alt="pic1" class="unactive" longdesc="http://www.baidu.com" width="187" /></a><!-- 208 -->
+		<span></span>
+	</li>
+	<li class="pic2" style="z-index:5;">
+		<a href="http://google.com/"><img src="images/pic2.gif" alt="pic2" longdesc="http://www.google.com" width="208" /></a>
+		<span></span>
+	</li>
+	<li class="pic3" style="z-index:3">
+		<a href="http://www.aidea.me/"><img src="images/pic3.gif" alt="pic3" class="unactive" longdesc="http://www.aidea.me" width="187" /></a>
+		<span></span>
+	</li>
+</ul>
+
+</body>
+</html>

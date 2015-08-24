@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+*{ margin:0; padding:0; list-style:none;}
+#ul1{ width:880px; margin:100px auto;}
+#ul1 li{ width:200px; height:200px; float:left; margin:10px; position:relative; overflow:hidden;}
+#ul1 li span{ position:absolute; left:-200px; top:0; width:100%; height:100%; text-align:center; line-height:200px; color:#fff; font-size:30px; font-weight:bold; font-family:微软雅黑; opacity:0.5; background:#f00;}
+#ul1 li img{ width:100%; height:100%;}
+</style>
+<script src="../js/move.js"></script>
+<script>
+function hoverDir(obj,ev){
+	var w=obj.offsetWidth;
+	var h=obj.offsetHeight;
+	var x=obj.offsetLeft+w/2-ev.clientX;
+	var y=obj.offsetTop+h/2-ev.clientY;
+	return Math.round((Math.atan2(y,x)*180/Math.PI+180)/90)%4;
+}
+window.onload=function(){
+	var oUl=document.getElementById('ul1');
+	var aLi=oUl.children;
+	var aSpan=oUl.getElementsByTagName('span');
+	
+	for(var i=0; i<aLi.length; i++){
+		aLi[i].index=i;
+		aLi[i].onmouseover=function(ev){
+			var oEvent=ev || event;
+			var from=oEvent.fromElement || oEvent.relatedTarget;
+			if(this.contains(from))return;
+			var n=hoverDir(this,oEvent);
+			var oSpan=aSpan[this.index];
+			switch(n){
+				case 0:
+					oSpan.style.left='200px';
+					oSpan.style.top=0;
+					break;
+				case 1:
+					oSpan.style.left=0;
+					oSpan.style.top='200px';
+					break;
+				case 2:
+					oSpan.style.left='-200px';
+					oSpan.style.top=0;
+					break;
+				case 3:
+					oSpan.style.left=0;
+					oSpan.style.top='-200px';
+					break;
+			}
+			move(oSpan,{left:0, top:0});
+		};
+		
+		aLi[i].onmouseout=function(ev){
+			var oEvent=ev || event;
+			var to=oEvent.toElement || oEvent.relatedTarget;
+			if(this.contains(to))return;
+			var n=hoverDir(this,oEvent);
+			var oSpan=aSpan[this.index];
+			switch(n){
+				case 0:
+					move(oSpan,{left:200,top:0});
+					break;
+				case 1:
+					move(oSpan,{left:0,top:200});
+					break;
+				case 2:
+					move(oSpan,{left:-200,top:0});
+					break;
+				case 3:
+					move(oSpan,{left:0,top:-200});
+					break;
+			}
+		};
+	}
+};
+</script>
+</head>
+
+<body>
+<ul id="ul1">
+	<li><img src="cat/1.jpg"><span>猫一</span></li>
+    <li><img src="cat/2.jpg"><span>猫二</span></li>
+    <li><img src="cat/3.jpg"><span>猫三</span></li>
+    <li><img src="cat/4.jpg"><span>猫四</span></li>
+    <li><img src="cat/5.jpg"><span>猫五</span></li>
+    <li><img src="cat/6.jpg"><span>猫六</span></li>
+    <li><img src="cat/7.jpg"><span>猫七</span></li>
+    <li><img src="cat/8.jpg"><span>猫八</span></li>
+</ul>
+</body>
+</html>

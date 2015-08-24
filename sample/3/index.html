@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+* {margin:0; padding:0; list-style:none;}
+
+#div1 {width:1090px; height:305px; border:1px solid black; margin:150px auto; position:relative; overflow:hidden;}
+#div1 span {width:50px; height:305px; display:block; position:absolute; left:0; top:0;padding-top: 120px;color: #fff;font-size: 30px;text-align: center;}
+#div1 div {width:840px; height:305; position:absolute; left:0; top:0; background:#CCC;}
+</style>
+<script src="../js/move.js"></script>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	var aDiv=oDiv.children;
+	for (var i = 1; i < aDiv.length; i++) {
+		aDiv[i].style.left=840+50*(i-1)+'px';
+	}
+	for (var i = 0; i < aDiv.length; i++) {
+		aDiv[i].index=i;
+		aDiv[i].onmouseover=function(){
+			for (var i = 0; i < aDiv.length; i++) {
+				if (i<=this.index) {
+					move(aDiv[i],{left:i*50});
+				}else{
+					move(aDiv[i],{left:840+(i-1)*50});
+				}
+			};
+		};
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<div class="active"><img src="images/0.jpg" /><span style="background:#2e0927;">图一</span></div>
+	<div><img src="images/1.jpg" /><span style="background:#d90000;">图二</span></div>
+	<div><img src="images/2.jpg" /><span style="background:#ff2d00;">图三</span></div>
+	<div><img src="images/3.jpg" /><span style="background:#ff8c00;">图四</span></div>
+	<div><img src="images/4.jpg" /><span style="background:#04756f;">图五</span></div>
+	<div><img src="images/5.jpg" /><span style="background:#32331d;">图六</span></div>
+</div>
+</body>
+</html>

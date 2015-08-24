@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+	*{margin:0;padding:0;list-style:none;}
+	body{background: #00ff7f;}
+	#div1{width:630px;height:630px;border:1px solid black;position:relative;margin:10px auto;background:#00ff7f;overflow: hidden;}
+	#div1 div{width:630px;height:450px;text-align: center;line-height: 200px;font-size: 80px;position:absolute;float: left;background: #00ff7f;z-index: 9;}
+	#div1 div input{width: 130px;height: 50px;background: #87ceeb;border: 1px solid #1e90ff;font-size: 20px;text-align: center;line-height: 50px;position: absolute;left:248px;}
+	#div1 #layer{width: 630px;height: 630px;background: #ccc;color: #f0c;line-height: 630px;font-size: 30px;text-align: center;display: none;font-family: 微软雅黑;}
+	#div1 div b{color: white;}
+	#div1 ul{width:630px;position: relative;}
+	#div1 ul li{width:200px;height:200px;margin:10px 5px;float:left;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	var oDiv2=document.getElementById('div2');
+	var oLayer=document.getElementById('layer');
+	var oBtn=document.getElementById('btn');
+	var aUl=document.getElementsByTagName('ul');
+	var aLi=document.getElementsByTagName('li');
+	var count=0;
+	//随机颜色初始化
+	for (var i = 6; i < aLi.length; i++) {
+		aLi[i].style.background='white';
+	}
+	for (var i = 2; i < aUl.length; i++) {
+		aUl[i].children[parseInt(Math.random()*3)].style.background='black';
+	}
+
+	oBtn.onclick=function(){
+		sTime=setInterval(scroll, 50);
+	}
+	for (var i = 0; i < aLi.length; i++) {
+		aLi[i].onclick=function(){
+			count++;
+			if (this.style.background=='white') {
+				oLayer.style.display='block';
+				clearInterval(sTime);
+			}else{
+				this.style.background='white';
+				
+			}
+			if (count%10==0) {
+				clearInterval(sTime);
+				sTime=setInterval(scroll, 50-count);
+			}
+		};
+	}
+	//自动滚动
+	var sTime=null;
+	var now=0;
+	function scroll(){
+		for (var i = 0; i < 3; i++) {
+			oDiv2.style.marginTop=now*-10+'px';
+			aLi[i].style.marginTop=now*-10+'px';
+		}
+		now++;
+		if (now==22) {
+			oDiv2.style.display='none';
+			for (var i = 0; i < 3; i++) {
+				if (aLi[i].style.background=='black') {
+					oLayer.style.display='block';
+					clearInterval(sTime);
+				}
+				aLi[i].style.marginTop=0;
+				aLi[i].style.background='white';
+			}
+			oDiv.appendChild(aUl[0]);
+			aUl[3].children[parseInt(Math.random()*3)].style.background='black';
+			now=0;
+		}
+	}
+}
+</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="layer">GAME OVER</div>
+		<div id="div2">别踩<b>白</b>块<br /><input type="button" value="点击开始" id="btn"></div>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+</html>

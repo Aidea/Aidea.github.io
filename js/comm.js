@@ -214,7 +214,7 @@ define(function(require,exports,module){
 						this.children[0].children[1].style.top='-150px';
 						break;
 				}
-				move(this.children[0].children[1],{left:0, top:0,opacity:1},{time:300});
+				//move(this.children[0].children[1],{left:0, top:0,opacity:1},{time:300});
 				this.children[0].children[0].style.transform='scale(1.2)';
 			}
 			aProjectLi[i].onmouseout=function(ev){

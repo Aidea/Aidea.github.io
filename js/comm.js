@@ -222,7 +222,7 @@ define(function(require,exports,module){
 				var to=oEvent.toElement || oEvent.relatedTarget;
 				if(this.contains(to))return;
 				var n=hoverDir(this,oEvent);
-				switch(n){
+				/*switch(n){
 					case 0:
 						move(this.children[0].children[1],{left:-200,top:0,opacity:0});
 						break;
@@ -235,7 +235,7 @@ define(function(require,exports,module){
 					case 3:
 						move(this.children[0].children[1],{left:0,top:200,opacity:0});
 						break;
-				}
+				}*/
 				this.children[0].children[0].style.transform='scale(1)';
 			}
 			aProjectLi[i].onclick=function(){
